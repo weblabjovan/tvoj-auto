@@ -16,7 +16,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Ovo je Tvoj Auto
+          Ovo je Tvoj Auto Stage stranica
         </h1>
       </main>
 
