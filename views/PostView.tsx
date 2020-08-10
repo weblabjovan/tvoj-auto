@@ -1,48 +1,60 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import SinglePost from '../components/SinglePost';
 
 type PostViewProps = {
-    post: string,
+    post: object,
     page: number,
+    all: boolean,
 }
 
 const PostView = (props: PostViewProps) => {
-  const { post, page } = props;
-  const back = page > 1 ? 1 : 0;
-  const next = page < 7 ? 1 : 0;
+  const { post, page, all } = props;
+  const pagesLength = all ? post['pagesLength'] : 1;
   
-  const pagination = {back, current: page, last: 7, next};
-
+  const back = page > 1 ? 1 : 0;
+  const next = page < pagesLength ? 1 : 0;
+  
+  const pagination = {back, current: page, last: pagesLength, next};
 
   return(
     <Container>
       <Row className="post-view">
         {
-          post === "all"
+          all === true
           ?
           (
             <React.Fragment>
               <Col sm="8">
-                <h1>Naši auto članci</h1>
+                <h1>Naši članci</h1>
+
+                <Row className="xs-only">
+                  <Col xs="12">
+                      <div className="banner"></div>
+                  </Col>
+                </Row>
+
                 <div className="post-list">
                   {
-                    [1,2,3,4,5,6,7,7,8,9,0,0,8,8].map((item, index) => {
+                    post['postsForPage'].map((item, index) => {
                       return(
                         <div className="post-item" key={`blog-key-${index}`}>
                           <Row>
-                            <Col xs="12" sm="4">
-                              <a href="/">
-                                <div className="post-img" style={{'background': 'url(/poster-car.jpg) center / cover no-repeat'}}></div>
+                            <Col xs="12" lg="4">
+                              <a href={`/posts/${item['urlName']}`}>
+                                <div className="post-img">
+                                  <img src="/poster-car.jpg" alt="neki-naslov" title="Neki naslov bilo koji kao pitanje?"/>
+                                </div>
                               </a>
                               
                             </Col>
-                            <Col xs="12" sm="8">
+                            <Col xs="12" lg="8">
                               <div className="post-text">
-                                <a href="/">
-                                  <h3>Neki naslov bilo koji kao pitanje?</h3>
+                                <a href={`/posts/${item['urlName']}`}>
+                                  <h2>{item['name']}</h2>
                                 </a>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                <span>Volkswagen / Jovan / 27 Jul 2020</span>
+                                <p>{item['description']}</p>
+                                <span>{`${item['dateString']} / ${item['author']['firstName']} ${item['author']['lastName']}`}</span>
                               </div>
                             </Col>
                           </Row>
@@ -50,6 +62,13 @@ const PostView = (props: PostViewProps) => {
                       )
                     })
                   }
+
+                <Row className="xs-only">
+                  <Col xs="12">
+                      <div className="banner"></div>
+                  </Col>
+                </Row>
+
                   <div className="pagination-wrapper">
                     <Row>
                       <Col>
@@ -90,11 +109,18 @@ const PostView = (props: PostViewProps) => {
               </Col>
               <Col sm="4">
                 <div className="side">
-                  <h2>Ovo je strana</h2>
+                  <div className="banner"></div>
+                  <div className="banner"></div>
                 </div>
               </Col>
             </React.Fragment>
           )
+          :
+          post['author']
+          ?
+          <SinglePost
+            postObject={ post }           
+          />
           :
           null
         }
