@@ -108,10 +108,14 @@ body{
                 margin: auto;
             }
 
+            label{
+                margin: 0px;
+            }
+
             input{
                 padding: 5px 10px;
                 margin-right: 5px;
-                width: 230px;
+                width: 227px;
                 border: none !important;
 
                 &:focus{
