@@ -21,7 +21,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx", "pages/posts/[pid].tsx"
   ],
   "exclude": [
     "node_modules"

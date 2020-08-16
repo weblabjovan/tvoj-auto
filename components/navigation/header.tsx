@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap'; 
+import { Container, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap'; 
 
 type HeaderProps = {
     isMobile: boolean,
@@ -12,35 +12,66 @@ const Header = (props: HeaderProps) => {
 
     return(
         <div className="header-wrapper">
-            <Navbar color="faded" light>
-                <NavbarBrand href="/" className="mr-auto">
-                    <img src="/logo.png" alt="tvojauto-logo"></img>
-                </NavbarBrand>
-                
-                {
-                    isMobile
-                    ?
-                    (
-                        <React.Fragment>
+            {
+                isMobile
+                ?
+                (
+                    <Container>
+                        <Navbar color="faded" light>
+                            <NavbarBrand href="/" className="mr-auto">
+                                <img src="/logo.png" alt="tvojauto-logo"></img>
+                            </NavbarBrand>
+                            
                             <NavbarToggler onClick={toggleNavbar} className="mr-2" />
 
                             <Collapse isOpen={!collapsed} navbar>
                                 <Nav navbar>
-                                    <NavItem>
-                                    <NavLink href="/components/">Components</NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                    <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-                                    </NavItem>
+                                    <ul>
+                                        <NavItem>
+                                            <div className="search-field">
+                                                <label htmlFor="navPostSearch" style={{"color":"#fff"}}>.</label>
+                                                <input type="text" placeholder="Pretraži članke..." id="navPostSearch"></input>
+                                                <img src="/search-icon.png" alt="search icon"></img>
+                                            </div>
+                                        </NavItem>
+                                    </ul>
                                 </Nav>
                             </Collapse>
-                        </React.Fragment>
-                    )
-                    :
-                    null
-                }
-                
-            </Navbar>
+                        </Navbar>
+                    </Container>
+                    
+                    
+                )
+               :
+               (
+                    <Container>
+                        <Navbar color="faded" light>
+                            <NavbarBrand href="/" className="mr-auto">
+                                <img src="/logo.png" alt="tvojauto-logo"></img>
+                            </NavbarBrand>
+                            <ul>
+
+                            
+                                {/* <NavItem>
+                                    <NavLink href="/">Polovni</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/">Novi</NavLink>
+                                </NavItem> */}
+                                <NavItem>
+                                    <div className="search-field">
+                                        <label htmlFor="navPostSearch" style={{"color":"#fff"}}>.</label>
+                                        <input type="text" placeholder="Pretraži članke..." id="navPostSearch"></input>
+                                        <img src="/search-icon.png" alt="search icon"></img>
+                                    </div>
+                                </NavItem>
+                            </ul>
+                            
+                        </Navbar>
+                    </Container>
+                    
+               ) 
+            }
         </div>
     )
 }
