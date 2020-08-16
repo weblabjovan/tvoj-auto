@@ -1,4 +1,6 @@
 import posts from '../base/posts';
+import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
+import { url } from 'inspector';
 
 export const getPost = (postUrl: string): object => {
   return posts[postUrl];
@@ -44,4 +46,75 @@ export const isPost = (postUrl: string): boolean => {
   }
 
   return true;
+}
+
+export const getSecureLink = (url: string): string => {
+  const link = parseLink(url);
+  let res = link['fullPath'] ? `https://www.tvojauto.com/${link['fullPath']}?${link['queryString']}` : `https://www.tvojauto.com/`;
+  if (link['host'] === 'localhost:3000') {
+    res = link['fullPath'] ? `https://localhost:3000/${link['fullPath']}?${link['queryString']}` : `https://localhost:3000/`;
+  }
+ 
+
+  return res;
+}
+
+export const isLinkSecure = (url: string): boolean => {
+  const link = parseLink(url);
+  if (link['host'] !== 'localhost:3000') {
+    if (link['protocol'] === 'http://') {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+export const isWWWLink = (url: string): boolean => {
+  const link = parseLink(url);
+  if (link['host'] !== 'localhost:3000') {
+    if (link['host'].substr(0,4) === 'www.') {
+      return true;
+    }
+  }else{
+    return true;
+  }
+
+  return false;
+}
+
+const parseLink = (link: string): object => {
+  const urlObj = {};
+  const split = link.split('/');
+  const second = link.split(split[2]);
+  const initial = link.split('?');
+  const third = initial[0].split(split[2]);
+  const path = split[3] ? split[3].split('?') : '';
+
+  urlObj['fullUrl'] = link;
+  urlObj['protocol'] = second[0];
+  urlObj['host'] = split[2];
+  urlObj['path'] = path[0] ? path[0] : '';
+  urlObj['fullPath'] = third[1] && third[1] !== '/' ? third[1] : '';
+  urlObj['queryString'] = getQuery(link)['initial'];
+  urlObj['queryObject'] = getQuery(link)['query'];
+
+  return urlObj;
+}
+
+const getQuery = (url:string):object => {
+  const query = {};
+  let initial = "";
+  const init = url.split('?');
+  if (init[1]) {
+    const second = init[1].split('&');
+    second.forEach((val) => {
+        const ar = val.split('=');
+        query[ar[0]] = ar[1];
+    });
+  initial = init[1];
+  }
+  
+
+  return {initial, query};
 }

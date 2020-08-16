@@ -43,7 +43,7 @@ const PostView = (props: PostViewProps) => {
                             <Col xs="12" lg="4">
                               <a href={`/posts/${item['urlName']}`}>
                                 <div className="post-img">
-                                  <img src="/poster-car.jpg" alt="neki-naslov" title="Neki naslov bilo koji kao pitanje?"/>
+                                  <img src={item['mainPhotos']['mediumPath']} alt={item['urlName']} title={item['urlName']}/>
                                 </div>
                               </a>
                               
