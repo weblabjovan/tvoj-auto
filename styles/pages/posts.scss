@@ -240,6 +240,36 @@
     }
   }
 
+  .photo-upright{
+    margin-bottom: 30px;
+    .photo{
+      width: 90%;
+      height: auto;
+      overflow: hidden;
+      margin: auto;
+      text-align: center;
+
+      @media only screen and (max-width: 576px){
+        width: 100%;
+      }
+
+      img{
+        max-width: 100%;
+      }
+    }
+
+    span{
+      font-size: 14px;
+      line-height: 24px;
+      font-weight: 300;
+      font-style: italic;
+      display: block;
+      text-align: left;
+      margin-top: 5px;
+      text-align: center;
+    }
+  }
+
   .simple-video{
     margin-bottom: 30px;
     iframe{
@@ -293,7 +323,7 @@
 
     span{
       display: block;
-      font-size: 20px;
+      font-size: 18px;
       text-align: left;
       font-weight: 700;
       color: #000;
@@ -319,7 +349,7 @@
 
     span{
       display: block;
-      font-size: 20px;
+      font-size: 18px;
       text-align: left;
       font-weight: 700;
       color: #000;

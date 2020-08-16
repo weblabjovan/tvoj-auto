@@ -32,6 +32,21 @@ const SinglePost = (props: SinglePostProps) => {
                     }
                   </div>
                   :
+                  item['type'] === "photo-upright"
+                  ?
+                  <div className="photo-upright" key={`str-key-${index}`} id={item['id'] ? `${item['id']}` : `smple-id-${index}`}>
+                    <div className="photo">
+                      <img src={item['src']} alt={item['title']} title={item['title']}/>
+                    </div>
+                    {
+                      item['explanation']
+                      ?
+                      <span>{item['explanation']}</span>
+                      :
+                      null
+                    }
+                  </div>
+                  :
                   item['type'] === "simple-paragraph"
                   ?
                   <div className="simple-paragraph" key={`str-key-${index}`} id={item['id'] ? `${item['id']}` : `smple-id-${index}`}>

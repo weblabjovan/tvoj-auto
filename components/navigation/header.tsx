@@ -29,7 +29,7 @@ const Header = (props: HeaderProps) => {
                                     <ul>
                                         <NavItem>
                                             <div className="search-field">
-                                                <label htmlFor="navPostSearch" style={{"visibility":"hidden"}}>Neki label</label>
+                                                <label htmlFor="navPostSearch" style={{"color":"#fff"}}>.</label>
                                                 <input type="text" placeholder="Pretraži članke..." id="navPostSearch"></input>
                                                 <img src="/search-icon.png" alt="search icon"></img>
                                             </div>
@@ -60,7 +60,7 @@ const Header = (props: HeaderProps) => {
                                 </NavItem> */}
                                 <NavItem>
                                     <div className="search-field">
-                                        <label htmlFor="navPostSearch" style={{"color":"#fff"}}>-</label>
+                                        <label htmlFor="navPostSearch" style={{"color":"#fff"}}>.</label>
                                         <input type="text" placeholder="Pretraži članke..." id="navPostSearch"></input>
                                         <img src="/search-icon.png" alt="search icon"></img>
                                     </div>
