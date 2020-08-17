@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { Container, Row, Col } from 'reactstrap';
 import SinglePost from '../components/SinglePost';
 
@@ -41,18 +42,20 @@ const PostView = (props: PostViewProps) => {
                         <div className="post-item" key={`blog-key-${index}`}>
                           <Row>
                             <Col xs="12" lg="4">
-                              <a href={`/posts/${item['urlName']}`}>
-                                <div className="post-img">
-                                  <img src={item['mainPhotos']['mediumPath']} alt={item['urlName']} title={item['urlName']}/>
-                                </div>
-                              </a>
+                              <Link href="/posts/[pid]" as={`/posts/${item['urlName']}`}>
+                                <a>
+                                  <div className="post-img">
+                                    <img src={item['mainPhotos']['mediumPath']} alt={item['urlName']} title={item['urlName']}/>
+                                  </div>
+                                </a>
+                              </Link>
                               
                             </Col>
                             <Col xs="12" lg="8">
                               <div className="post-text">
-                                <a href={`/posts/${item['urlName']}`}>
-                                  <h2>{item['name']}</h2>
-                                </a>
+                                <Link href="/posts/[pid]" as={`/posts/${item['urlName']}`}>
+                                  <a><h2>{item['name']}</h2></a>
+                                </Link>
                                 <p>{item['description']}</p>
                                 <span>{`${item['dateString']} / ${item['author']['firstName']} ${item['author']['lastName']}`}</span>
                               </div>
@@ -79,7 +82,9 @@ const PostView = (props: PostViewProps) => {
                               return(
                                 item === "back" && pagination[item] !== 0 
                                 ?
-                                <a href={`/posts/all?page=${page - 1}`} key={`pagination-key${index}`}><div className="pagination-item button left" >{`nazad`}</div></a>
+                                <Link href="/posts/[pid]" as={`/posts/all?page=${page - 1}`} key={`pagination-key${index}`}>
+                                  <a><div className="pagination-item button left" >{`nazad`}</div></a>
+                                </Link>
                                 :
                                 item === "current" && pagination[item] !== 0
                                 ?
@@ -91,7 +96,10 @@ const PostView = (props: PostViewProps) => {
                                 :
                                 item === "next" && pagination[item] !== 0 
                                 ?
-                                <a href={`/posts/all?page=${page + 1}`} key={`pagination-key${index}`}><div className="pagination-item button right" >{`napred`}</div></a>
+                                <Link href="/posts/[pid]" as={`/posts/all?page=${page + 1}`} key={`pagination-key${index}`}>
+                                  <a><div className="pagination-item button right" >{`napred`}</div></a>
+                                </Link>
+                                
                                 :
                                 null
                               )
