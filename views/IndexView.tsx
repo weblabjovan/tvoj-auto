@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { Container, Row, Col } from 'reactstrap';
 
 type IndexViewProps = {
@@ -13,14 +14,19 @@ const IndexView = (props: IndexViewProps) => {
             <Row className="index-view">
                 <Col sm="8" className="main">
                     <div className="poster">
-                        <a href="/">
-                            <div className="poster-img">
-                                <img src="/poster-car.jpg" alt="golf-5-klima" title="Golf 5: Kako upaliti klimu?"/>
-                            </div>
-                        </a>
+                        <Link href="/posts/[pid]" as={`/posts/golf_5_kako_upaliti_klimu`}>
+                            <a>
+                                <div className="poster-img">
+                                    <img src="/poster-car.jpg" alt="golf-5-klima" title="Golf 5: Kako upaliti klimu?"/>
+                                </div>
+                            </a>
+                        </Link>
+                        
                         <div className="poster-bottom">
                             <div className="left-side">
-                                <a href="/posts/golf_5_kako_upaliti_klimu"><h3>Golf 5: Kako upaliti klimu?</h3></a>
+                                <Link href="/posts/[pid]" as={`/posts/golf_5_kako_upaliti_klimu`}>
+                                    <a><h3>Golf 5: Kako upaliti klimu?</h3></a>
+                                </Link>
                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                             </div>
                             <div className="right-side">
@@ -90,9 +96,12 @@ const IndexView = (props: IndexViewProps) => {
                         <Row>
                             <Col xs="12">
                                 <div className="btn-wrapper">
-                                    <a href="/posts/all">
-                                        <div className="btn-standard">svi članci</div>
-                                    </a>
+                                    <Link href="/posts/[pid]" as={`/posts/all`}>
+                                        <a>
+                                            <div className="btn-standard">svi članci</div>
+                                        </a>
+                                    </Link>
+                                    
                                 </div>
                             </Col>
                         </Row>

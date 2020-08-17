@@ -11,7 +11,6 @@ const Post = () => {
   const router = useRouter();
   const uaParser =  new  UA();
   const device = uaParser.getDevice();
-
   if(typeof window !== 'undefined'){
     if(!isLinkSecure(window.location.href) || !isWWWLink(window.location.href)){
       const secLink = getSecureLink(window.location.href);
@@ -23,7 +22,6 @@ const Post = () => {
   let pageNum = 1;
   let postObj = {}
   let all = false;
-
   if(page){
     pageNum = page === "null" || page === "undefined" ? 1 : parseInt(page.toString());
   }
