@@ -28,13 +28,16 @@ const Post = () => {
     pageNum = page === "null" || page === "undefined" ? 1 : parseInt(page.toString());
   }
   if (pid) {
+    console.log(pid)
     const isPostUrlOk = isPost(pid.toString());
+    console.log(isPostUrlOk)
     all = !isPostUrlOk;
       if(isPostUrlOk){
         postObj = getPost(pid.toString());
       }else{
         postObj = getPostsForPage(pageNum);
       }
+    console.log(postObj)
   }
   
   return (
