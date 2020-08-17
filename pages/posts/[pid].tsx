@@ -11,38 +11,28 @@ const Post = () => {
   const router = useRouter();
   const uaParser =  new  UA();
   const device = uaParser.getDevice();
-  console.log(1)
   if(typeof window !== 'undefined'){
-    console.log(2)
     if(!isLinkSecure(window.location.href) || !isWWWLink(window.location.href)){
-      console.log(3)
       const secLink = getSecureLink(window.location.href);
       router.push(secLink);
     }
   }
 
-  console.log(4)
-
   let { pid, page } = router.query;
   let pageNum = 1;
   let postObj = {}
   let all = false;
-  console.log(router);
-  console.log(pid);
   if(page){
     pageNum = page === "null" || page === "undefined" ? 1 : parseInt(page.toString());
   }
   if (pid) {
-    console.log(pid)
     const isPostUrlOk = isPost(pid.toString());
-    console.log(isPostUrlOk)
     all = !isPostUrlOk;
       if(isPostUrlOk){
         postObj = getPost(pid.toString());
       }else{
         postObj = getPostsForPage(pageNum);
       }
-    console.log(postObj)
   }
   
   return (
