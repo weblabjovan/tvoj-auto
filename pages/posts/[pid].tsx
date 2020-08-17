@@ -27,6 +27,7 @@ const Post = () => {
   let pageNum = 1;
   let postObj = {}
   let all = false;
+  console.log(router);
   console.log(pid);
   if(page){
     pageNum = page === "null" || page === "undefined" ? 1 : parseInt(page.toString());
