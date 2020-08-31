@@ -83,7 +83,7 @@ export const isWWWLink = (url: string): boolean => {
   return false;
 }
 
-const parseLink = (link: string): object => {
+export const parseLink = (link: string): object => {
   const urlObj = {};
   const split = link.split('/');
   const second = link.split(split[2]);
