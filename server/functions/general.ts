@@ -127,6 +127,7 @@ export const isLinkSecure = (url: string): boolean => {
 export const isWWWLink = (url: string): boolean => {
   const link = parseLink(url);
   if (link['host'] !== 'localhost:3000') {
+    console.log(link['host'].substr(0,4));
     if (link['host'].substr(0,4) === 'www.') {
       return true;
     }
