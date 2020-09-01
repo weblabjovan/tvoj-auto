@@ -24,29 +24,26 @@ const Post = () => {
   let pageNum = 1;
   let postObj = {}
   let all = false;
+  let isPostUrlOk = false;
   if(page){
     pageNum = page === "null" || page === "undefined" ? 1 : parseInt(page.toString());
   }
-
-  if (pid) {
-    const isPostUrlOk = isPost(String(pid));
-    all = !isPostUrlOk;
-    if(isPostUrlOk){
-      postObj = getPost(String(pid));
+  if (query['host']) {
+    if (false) {
+      isPostUrlOk = isPost(query, true);
+      all = !isPostUrlOk;
+      if(isPostUrlOk){
+        postObj = getPost(String(pid));
+      }else{
+        postObj = getPostsForPage(pageNum);
+      }
     }else{
-      postObj = getPostsForPage(pageNum);
-    }
-  }else{
-    if(query['host']){
-      if (query['queryObject']['id']) {
-        if (parseInt(query['queryObject']['id']) > 0) {
-          if(Object.keys(postObj).length === 0){
-            postObj = getPostById(parseInt(query['queryObject']['id']))
-          }
-        }else{
-          all = true;
-          postObj = getPostsForPage(pageNum);
-        }
+      isPostUrlOk = isPost(query, false);
+      all = !isPostUrlOk;
+      if(isPostUrlOk){
+        postObj = getPostById(parseInt(query['queryObject']['id']))
+      }else{
+        postObj = getPostsForPage(pageNum);
       }
     }
   }

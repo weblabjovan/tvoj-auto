@@ -38,22 +38,68 @@ export const getPostsForPage = (page: number): object => {
  return { pagesLength: Math.ceil(Object.keys(posts).length / postPerPage), postsForPage };
 }
 
-export const isPost = (postUrl: string): boolean => {
-  if (typeof posts[postUrl] === 'object') {
-    const postStructure = {id: 1, name: 1, urlName: 1, dateString: 1, date: 1, mainPhotos: 1, model: 1, author: 1, related: 1, popular: 1, description: 1, structure: 1};
-    if (Object.keys(postStructure).length !== Object.keys(posts[postUrl]).length) {
-      return false;
-    }
-    for (var index = 0; index < Object.keys(posts[postUrl]).length; index++) {
-      if(postStructure[Object.keys(posts[postUrl])[index]] !== 1){
-        return false
+export const isPost = (query: object, pid: boolean): boolean => {
+  let pidString = "";
+  let id = 0;
+  if (isQueryObjectComplete(query, 'id')) {
+    pidString = getPagePid(query);
+    id = parseInt(query['queryObject']['id']);
+    const post = pid ? posts[pidString] : getPostById(id);
+    if (typeof post === 'object') {
+      if (isPidConsistentWithId(pidString, id)) {
+        return isPostObjectSturcture(post);
       }
     }
-  }else{
+  }
+
+  return false;
+}
+
+const isPostObjectSturcture = (post: object): boolean => {
+  const postStructure = {id: 1, name: 1, urlName: 1, dateString: 1, date: 1, mainPhotos: 1, model: 1, author: 1, related: 1, popular: 1, description: 1, structure: 1};
+  if (Object.keys(postStructure).length !== Object.keys(post).length) {
     return false;
+  }
+  for (var index = 0; index < Object.keys(post).length; index++) {
+    if(postStructure[Object.keys(post)[index]] !== 1){
+      return false
+    }
   }
 
   return true;
+}
+
+const getPagePid = (query: object): string => {
+  let pid = '';
+  if (query['path'] === 'posts') {
+    pid = query['fullPath'].split('/')[2];
+  }
+  return pid;
+}
+
+const isPidConsistentWithId = (pid: string, id: number): boolean =>{
+  const post = posts[pid];
+  if (typeof post === 'object') {
+    if (isPostObjectSturcture(post)) {
+      if (post['id'] === id) {
+        return true;
+      }
+    }
+  }
+  
+  return false;
+}
+
+const isQueryObjectComplete = (query: object, property: string): boolean => {
+  if (query['host']) {
+    if (query['queryObject']) {
+      if (query['queryObject'][property]) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 export const getSecureLink = (url: string): string => {

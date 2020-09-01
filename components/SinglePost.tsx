@@ -14,7 +14,7 @@ const SinglePost = (props: SinglePostProps) => {
           <div className="single-post">
             <h1>{postObject['name']}</h1>
             {
-              postObject['structure'].map((item, index) => {
+              postObject['structure'].map((item: object, index: number) => {
                 return(
                   item['type'] === "photo-element"
                   ?

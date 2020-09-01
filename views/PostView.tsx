@@ -37,6 +37,7 @@ const PostView = (props: PostViewProps) => {
 
                 <div className="post-list">
                   {
+                    
                     post['postsForPage'].map((item, index) => {
                       return(
                         <div className="post-item" key={`blog-key-${index}`}>
