@@ -37,12 +37,13 @@ const PostView = (props: PostViewProps) => {
 
                 <div className="post-list">
                   {
+                    
                     post['postsForPage'].map((item, index) => {
                       return(
                         <div className="post-item" key={`blog-key-${index}`}>
                           <Row>
                             <Col xs="12" lg="4">
-                              <Link href="/posts/[pid]" as={`/posts/${item['urlName']}`}>
+                              <Link href="/posts/[pid]" as={`/posts/${item['urlName']}?id=${item['id']}`}>
                                 <a>
                                   <div className="post-img">
                                     <img src={item['mainPhotos']['mediumPath']} alt={item['urlName']} title={item['urlName']}/>
@@ -53,7 +54,7 @@ const PostView = (props: PostViewProps) => {
                             </Col>
                             <Col xs="12" lg="8">
                               <div className="post-text">
-                                <Link href="/posts/[pid]" as={`/posts/${item['urlName']}`}>
+                                <Link href="/posts/[pid]" as={`/posts/${item['urlName']}?id=${item['id']}`}>
                                   <a><h2>{item['name']}</h2></a>
                                 </Link>
                                 <p>{item['description']}</p>
@@ -82,7 +83,7 @@ const PostView = (props: PostViewProps) => {
                               return(
                                 item === "back" && pagination[item] !== 0 
                                 ?
-                                <Link href="/posts/[pid]" as={`/posts/all?page=${page - 1}`} key={`pagination-key${index}`}>
+                                <Link href="/posts/[pid]" as={`/posts/all?id=0&page=${page - 1}`} key={`pagination-key${index}`}>
                                   <a><div className="pagination-item button left" >{`nazad`}</div></a>
                                 </Link>
                                 :
@@ -96,7 +97,7 @@ const PostView = (props: PostViewProps) => {
                                 :
                                 item === "next" && pagination[item] !== 0 
                                 ?
-                                <Link href="/posts/[pid]" as={`/posts/all?page=${page + 1}`} key={`pagination-key${index}`}>
+                                <Link href="/posts/[pid]" as={`/posts/all?id=0&page=${page + 1}`} key={`pagination-key${index}`}>
                                   <a><div className="pagination-item button right" >{`napred`}</div></a>
                                 </Link>
                                 
