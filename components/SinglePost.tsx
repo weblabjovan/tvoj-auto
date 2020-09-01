@@ -13,7 +13,6 @@ const SinglePost = (props: SinglePostProps) => {
         <Col sm="8">
           <div className="single-post">
             <h1>{postObject['name']}</h1>
-
             {
               postObject['structure'].map((item, index) => {
                 return(
@@ -181,8 +180,6 @@ const SinglePost = (props: SinglePostProps) => {
                 )
               })
             }
-
-            
           </div>
 
           <div className="blogger-info">

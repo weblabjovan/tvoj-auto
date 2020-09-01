@@ -96,7 +96,7 @@ const IndexView = (props: IndexViewProps) => {
                         <Row>
                             <Col xs="12">
                                 <div className="btn-wrapper">
-                                    <Link href="/posts/[pid]" as={`/posts/all`}>
+                                    <Link href="/posts/[pid]" as={`/posts/all?id=0`}>
                                         <a>
                                             <div className="btn-standard">svi članci</div>
                                         </a>

@@ -1,6 +1,14 @@
 import posts from '../base/posts';
-import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
-import { url } from 'inspector';
+
+export const getPostById = (id: number): object | boolean => {
+  for (const key in posts) {
+    if (posts[key]['id'] === id) {
+      return posts[key];
+    }
+  }
+
+  return false;
+}
 
 export const getPost = (postUrl: string): object => {
   return posts[postUrl];
