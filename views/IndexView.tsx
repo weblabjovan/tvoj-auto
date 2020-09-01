@@ -14,7 +14,7 @@ const IndexView = (props: IndexViewProps) => {
             <Row className="index-view">
                 <Col sm="8" className="main">
                     <div className="poster">
-                        <Link href="/posts/[pid]" as={`/posts/golf_5_kako_upaliti_klimu`}>
+                        <Link href="/posts/[pid]" as={`/posts/golf_5_kako_upaliti_klimu?id=1`}>
                             <a>
                                 <div className="poster-img">
                                     <img src="/poster-car.jpg" alt="golf-5-klima" title="Golf 5: Kako upaliti klimu?"/>
@@ -24,7 +24,7 @@ const IndexView = (props: IndexViewProps) => {
                         
                         <div className="poster-bottom">
                             <div className="left-side">
-                                <Link href="/posts/[pid]" as={`/posts/golf_5_kako_upaliti_klimu`}>
+                                <Link href="/posts/[pid]" as={`/posts/golf_5_kako_upaliti_klimu?id=1`}>
                                     <a><h3>Golf 5: Kako upaliti klimu?</h3></a>
                                 </Link>
                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
@@ -96,7 +96,7 @@ const IndexView = (props: IndexViewProps) => {
                         <Row>
                             <Col xs="12">
                                 <div className="btn-wrapper">
-                                    <Link href="/posts/[pid]" as={`/posts/all`}>
+                                    <Link href="/posts/[pid]" as={`/posts/all?id=0`}>
                                         <a>
                                             <div className="btn-standard">svi članci</div>
                                         </a>
