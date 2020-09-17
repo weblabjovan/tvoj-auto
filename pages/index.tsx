@@ -11,8 +11,12 @@ export default function Home() {
   const uaParser =  new  UA();
   const device = uaParser.getDevice();
   if(typeof window !== 'undefined'){
+    console.log(isLinkSecure(window.location.href));
+    console.log(isWWWLink(window.location.href));
     if(!isLinkSecure(window.location.href) || !isWWWLink(window.location.href)){
+      console.log('ovde')
       const secLink = getSecureLink(window.location.href);
+      console.log(secLink);
       router.push(secLink);
     }
   }
