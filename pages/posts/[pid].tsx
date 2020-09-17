@@ -16,7 +16,7 @@ const Post = () => {
     query = parseLink(window.location.href);
     if(!isLinkSecure(window.location.href) || !isWWWLink(window.location.href)){
       const secLink = getSecureLink(window.location.href);
-      router.push(secLink);
+      window.location.href = secLink;
     }
   }
 
