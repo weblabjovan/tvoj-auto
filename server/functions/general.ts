@@ -173,3 +173,12 @@ const getQuery = (url:string):object => {
 
   return {initial, query};
 }
+
+export const generateLinkFromContext = (ctx: object): object =>{
+  const protocol = ctx['host'] === 'localhost:3000' ? 'http://' : 'https://';
+  const url = `${protocol}${ctx['host']}${ctx['path']}`;
+
+  const linkObject = parseLink(url);
+
+  return linkObject;
+}

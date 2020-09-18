@@ -4,6 +4,7 @@ import HeadComp from '../../components/head';
 import Header from '../../components/navigation/header';
 import Footer from '../../components/navigation/footer';
 import PostView from '../../views/PostView';
+import { GetServerSideProps } from 'next';
 import { isPost, getPost, getPostById, getPostsForPage, isLinkSecure, isWWWLink, getSecureLink, parseLink } from '../../server/functions/general';
 
 
@@ -71,6 +72,13 @@ const Post = () => {
     </div>
     
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  console.log(context);
+  console.log(context['req']['url']);
+
+  return {props: { title: 'My Title', content: '...' }};
 }
 
 export default Post
