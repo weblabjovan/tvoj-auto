@@ -1,4 +1,5 @@
 import UA from 'ua-parser-js';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import HeadComp from '../components/head';
 import Header from '../components/navigation/header';
@@ -13,10 +14,14 @@ function Home(data: any) {
   const router = useRouter();
   const device = uaParser.getDevice();
   const currentUrl = setUrl(data['host'], router.asPath);
-  if(!isLinkSecure(currentUrl) || !isWWWLink(currentUrl)){
-    const secLink = getSecureLink(currentUrl);
-    window.location.href = secLink;
-  }
+  useEffect(() => {
+    if(!isLinkSecure(currentUrl) || !isWWWLink(currentUrl)){
+      const secLink = getSecureLink(currentUrl);
+      if (typeof window !== 'undefined') {
+        window.location.href = secLink;
+      }
+    }
+  });
   
   return (
     <div>
