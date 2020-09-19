@@ -8,13 +8,15 @@ import { GetServerSideProps } from 'next';
 import { isPost, getPost, getPostById, getPostsForPage, isLinkSecure, isWWWLink, getSecureLink, parseLink } from '../../server/functions/general';
 
 
-const Post = () => {
+const Post = (data: any) => {
+  console.log(data);
   const router = useRouter();
   const uaParser =  new  UA();
   const device = uaParser.getDevice();
   let query = {};
   if(typeof window !== 'undefined'){
     query = parseLink(window.location.href);
+    console.log('ovde')
     if(!isLinkSecure(window.location.href) || !isWWWLink(window.location.href)){
       const secLink = getSecureLink(window.location.href);
       window.location.href = secLink;
@@ -75,10 +77,7 @@ const Post = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log(context);
-  console.log(context['req']['url']);
-
-  return {props: { title: 'My Title', content: '...' }};
+  return {props: {host: context['req']['headers']['host'], url: context['req']['url']}};
 }
 
-export default Post
+export default Post;

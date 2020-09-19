@@ -7,15 +7,16 @@ import {isLinkSecure, isWWWLink, getSecureLink, generateLinkFromContext } from '
 import { GetServerSideProps } from 'next';
 
 
-function Home() {
+function Home(data: any) {
+  console.log(data);
   const uaParser =  new  UA();
   const device = uaParser.getDevice();
-  // if(typeof window !== 'undefined'){
-  //   if(!isLinkSecure(window.location.href) || !isWWWLink(window.location.href)){
-  //     const secLink = getSecureLink(window.location.href);
-  //     window.location.href = secLink;
-  //   }
-  // }
+  if(typeof window !== 'undefined'){
+    if(!isLinkSecure(window.location.href) || !isWWWLink(window.location.href)){
+      const secLink = getSecureLink(window.location.href);
+      window.location.href = secLink;
+    }
+  }
   
   return (
     <div>
@@ -23,29 +24,19 @@ function Home() {
         title="Tvoj Auto"
         description="Tvoj auto"
       />
-
       <Header
         isMobile={ device['type'] === 'mobile' ? true : false }
       />
-
       <IndexView
         indexObjects={ [{trip: "trip"}]}
       />
-
       <Footer />
-      
     </div>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log(context['req']['headers']['host']);
-  console.log(context['req']['url']);
-
-  const link = generateLinkFromContext(context['req']);
-  console.log(link);
-
-  return {props: { title: 'My Title', content: '...' }};
+  return {props: {host: context['req']['headers']['host'], url: context['req']['url']}};
 }
 
 export default Home; 
