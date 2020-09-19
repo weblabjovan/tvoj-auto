@@ -126,7 +126,6 @@ export const isLinkSecure = (url: string): boolean => {
 
 export const isWWWLink = (url: string): boolean => {
   const link = parseLink(url);
-  console.log(link['host'].substr(-4))
   if (link['host'] !== 'localhost:3000' && link['host'].substr(-4) !== '.app') {
     if (link['host'].substr(0,4) === 'www.') {
       return true;
@@ -172,4 +171,8 @@ const getQuery = (url:string):object => {
   
 
   return {initial, query};
+}
+
+export const setUrl = (host: string, path: string): string => {
+  return host === 'localhost:3000' ? `http://${host}${path}` : `https://${host}${path}`;
 }
