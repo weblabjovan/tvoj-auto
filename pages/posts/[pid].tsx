@@ -5,22 +5,18 @@ import Header from '../../components/navigation/header';
 import Footer from '../../components/navigation/footer';
 import PostView from '../../views/PostView';
 import { GetServerSideProps } from 'next';
-import { isPost, getPost, getPostById, getPostsForPage, isLinkSecure, isWWWLink, getSecureLink, parseLink } from '../../server/functions/general';
+import { isPost, getPost, getPostById, getPostsForPage, isLinkSecure, isWWWLink, getSecureLink, parseLink, setUrl } from '../../server/functions/general';
 
 
 const Post = (data: any) => {
-  console.log(data);
   const router = useRouter();
   const uaParser =  new  UA();
   const device = uaParser.getDevice();
-  let query = {};
-  if(typeof window !== 'undefined'){
-    query = parseLink(window.location.href);
-    console.log('ovde')
-    if(!isLinkSecure(window.location.href) || !isWWWLink(window.location.href)){
-      const secLink = getSecureLink(window.location.href);
-      window.location.href = secLink;
-    }
+  const currentUrl = setUrl(data['host'], router.asPath);
+  const query = parseLink(currentUrl);
+  if(!isLinkSecure(currentUrl) || !isWWWLink(currentUrl)){
+    const secLink = getSecureLink(currentUrl);
+    window.location.href = secLink;
   }
 
   let { pid, page } = router.query;
@@ -32,7 +28,7 @@ const Post = (data: any) => {
     pageNum = page === "null" || page === "undefined" ? 1 : parseInt(page.toString());
   }
   if (query['host']) {
-    if (false) {
+    if (pid) {
       isPostUrlOk = isPost(query, true);
       all = !isPostUrlOk;
       if(isPostUrlOk){
@@ -77,7 +73,7 @@ const Post = (data: any) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  return {props: {host: context['req']['headers']['host'], url: context['req']['url']}};
+  return {props: {host: context['req']['headers']['host']}};
 }
 
 export default Post;
