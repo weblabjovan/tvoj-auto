@@ -38,7 +38,7 @@ const PostView = (props: PostViewProps) => {
                 <div className="post-list">
                   {
                     
-                    post['postsForPage'].map((item, index) => {
+                    post['post'].map((item, index) => {
                       return(
                         <div className="post-item" key={`blog-key-${index}`}>
                           <Row>
@@ -125,7 +125,7 @@ const PostView = (props: PostViewProps) => {
             </React.Fragment>
           )
           :
-          post['author']
+          post['post']['author']
           ?
           <SinglePost
             postObject={ post }           

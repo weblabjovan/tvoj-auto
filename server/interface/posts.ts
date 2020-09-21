@@ -21,6 +21,11 @@ const postStructureTemplate = [
   {type: "link-paragraph", linkText: {textFront: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem.", textBack: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem.", link:"Neki link", href: "https://reactstrap.github.io/components/tables/"} },
 ]
 
+export interface PostsForPage{
+  pagesLength?: number,
+  post: object | Array<object>,
+}
+
 interface PostsStructureLinkProps{
   textFront: string,
   textBack: string,
@@ -90,8 +95,6 @@ interface PostProps {
   structure: Array<PostsStructureProps>,
 }
 
-interface PostMap {
+export interface PostMap {
   [post: string]: PostProps
 }
-
-export default PostMap;

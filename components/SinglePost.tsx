@@ -2,11 +2,11 @@ import React from 'react';
 import { Container, Row, Col, Table } from 'reactstrap';
 
 type SinglePostProps = {
-    postObject: object,
+  postObject: object,
 }
 
 const SinglePost = (props: SinglePostProps) => {
-    const { postObject } = props;
+    const postObject = props['postObject']['post'];
 
     return(
       <React.Fragment>

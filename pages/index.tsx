@@ -27,14 +27,14 @@ function Home(data: any) {
   )
 }
 
-Home.getInitialProps = async (context) => {
+Home.getInitialProps = async (context: any) => {
   const currentUrl = setUrl(context['req']['headers']['host'], context.asPath);
   if(!isLinkSecure(currentUrl) || !isWWWLink(currentUrl)){
     const secLink = getSecureLink(currentUrl);
     context.res.writeHead(302, {Location: secLink });
     context.res.end();
   }
-  return {props: {host: 'medium'}};
+  return {props: {host: ''}};
 }
 
 export default Home; 
