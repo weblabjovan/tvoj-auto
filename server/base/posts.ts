@@ -79,7 +79,7 @@ const posts: PostMap = {
     author: { firstName: "Zvonko", lastName: "Stamatović", photoPath: "/jovan-img.jpg", description:"Dugogodišnji vozač i zaljubljenik u nemačku automobilsku industriju. 'Sve je lakše i lepše kada vozite nemački auto' "},
     related: [],
     popular: true,
-    description: "Neke verzije Golfa 5 imaju plivajući zamajac a neke ne. Najčešća indikator postojanja plivajućeg zamajca kod Golfa je tip goriva koje model koristi. Ukoliko je u pitanju dizelaš on ima plivajući zamajac, dok benzinci nemaju ovaj deo.",
+    description: "Neke verzije Golfa 5 imaju plivajući zamajac a neke ne. Najčešća indikator postojanja plivajućeg zamajca kod Golfa je tip goriva koje model koristi. Ukoliko je u pitanju dizelaš on ima plivajući zamajac, dok samo neki benzinci imaju ovaj deo.",
     structure: [
       {type: "photo-element", src: "/posts/id_2_img_1.jpg", alt: "Golf plivajući zamajac", title: "Golf 5 plivajući zamajac"},
       {type: "simple-paragraph", text: "Prilikom odabira polovnog vozila ljudi se često raspituju da li neki model automobila ima plivajući zamajac. Ovaj deo sistema kvačila može drastično povećati troškove nakon kupovine, zbog toga je prirodno interesovanje za ovu temu."},
