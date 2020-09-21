@@ -22,6 +22,8 @@ const Post = (data: Props) => {
   const pathQuery = getQuery(asPath);
   const page = pathQuery['query']['page'];
   const id = pathQuery['query']['id'];
+  let description = 'Pregled najnovijih članaka tvog auta.';
+  let title= 'Tvoj Auto - Članci'
 
   const pageNum = page === 'undefined' || page === 'null' || page === undefined ? 1 : parseInt(String(page));
   let postObj: PostsForPage = { pagesLength: 1, post: [] }
@@ -33,6 +35,8 @@ const Post = (data: Props) => {
     all = !isPostUrlOk;
     if(isPostUrlOk){
       postObj = getPost(String(pid));
+      title= postObj['post']['name'];
+      description = postObj['post']['description'];
     }else{
       postObj = getPostsForPage(pageNum);
     }
@@ -41,6 +45,8 @@ const Post = (data: Props) => {
     all = !isPostUrlOk;
     if(isPostUrlOk){
       postObj = getPostById(parseInt(String(id)));
+      title= postObj['post']['name'];
+      description = postObj['post']['description'];
     }else{
       postObj = getPostsForPage(pageNum);
     }
@@ -50,8 +56,8 @@ const Post = (data: Props) => {
    
     <div>
       <HeadComp 
-        title="Tvoj Auto"
-        description="Tvoj auto"
+        title={title}
+        description={description}
       />
 
       <Header
