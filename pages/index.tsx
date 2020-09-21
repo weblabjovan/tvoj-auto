@@ -14,7 +14,7 @@ function Home(data: any) {
     <div>
       <HeadComp 
         title="Tvoj Auto"
-        description="Tvoj auto"
+        description="Portal posvećen automobilima"
       />
       <Header
         isMobile={ device['type'] === 'mobile' ? true : false }
