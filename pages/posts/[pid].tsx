@@ -4,46 +4,45 @@ import HeadComp from '../../components/head';
 import Header from '../../components/navigation/header';
 import Footer from '../../components/navigation/footer';
 import PostView from '../../views/PostView';
-import { GetServerSideProps } from 'next';
-import { isPost, getPost, getPostById, getPostsForPage, isLinkSecure, isWWWLink, getSecureLink, parseLink, setUrl } from '../../server/functions/general';
+import { PostsForPage } from '../../server/interface/posts';
+import { isPost, getPost, getPostById, getPostsForPage, isLinkSecure, isWWWLink, getSecureLink, getQuery, setUrl } from '../../server/functions/general';
 
+interface Props {
+  direct: boolean;
+}
 
-const Post = (data: any) => {
-  const router = useRouter();
+const Post = (data: Props) => {
   const uaParser =  new  UA();
   const device = uaParser.getDevice();
-  const currentUrl = setUrl(data['host'], router.asPath);
-  const query = parseLink(currentUrl);
-  if(!isLinkSecure(currentUrl) || !isWWWLink(currentUrl)){
-    const secLink = getSecureLink(currentUrl);
-    window.location.href = secLink;
-  }
+  const router = useRouter();
+  const { direct } = data;
 
-  let { pid, page } = router.query;
-  let pageNum = 1;
-  let postObj = {}
+  const { query, asPath } = router;
+  const { pid } = query;
+  const pathQuery = getQuery(asPath);
+  const page = pathQuery['query']['page'];
+  const id = pathQuery['query']['id'];
+
+  const pageNum = page === 'undefined' || page === 'null' || page === undefined ? 1 : parseInt(String(page));
+  let postObj: PostsForPage = { pagesLength: 1, post: [] }
   let all = false;
   let isPostUrlOk = false;
-  if(page){
-    pageNum = page === "null" || page === "undefined" ? 1 : parseInt(page.toString());
-  }
-  if (query['host']) {
-    if (pid) {
-      isPostUrlOk = isPost(query, true);
-      all = !isPostUrlOk;
-      if(isPostUrlOk){
-        postObj = getPost(String(pid));
-      }else{
-        postObj = getPostsForPage(pageNum);
-      }
+  
+  if (pid) {
+    isPostUrlOk = isPost(String(pid), parseInt(String(id)), true);
+    all = !isPostUrlOk;
+    if(isPostUrlOk){
+      postObj = getPost(String(pid));
     }else{
-      isPostUrlOk = isPost(query, false);
-      all = !isPostUrlOk;
-      if(isPostUrlOk){
-        postObj = getPostById(parseInt(query['queryObject']['id']))
-      }else{
-        postObj = getPostsForPage(pageNum);
-      }
+      postObj = getPostsForPage(pageNum);
+    }
+  }else{
+    isPostUrlOk = isPost(String(pid), parseInt(String(id)), false);
+    all = !isPostUrlOk;
+    if(isPostUrlOk){
+      postObj = getPostById(parseInt(String(id)));
+    }else{
+      postObj = getPostsForPage(pageNum);
     }
   }
   
@@ -72,8 +71,21 @@ const Post = (data: any) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  return {props: {host: context['req']['headers']['host']}};
+Post.getInitialProps = async (context: any) => {
+  let direct = false;
+  if (context['req']) {
+    direct = true;
+    const currentUrl = setUrl(context['req']['headers']['host'], context.asPath);
+
+    if(!isLinkSecure(currentUrl) || !isWWWLink(currentUrl)){
+      const secLink = getSecureLink(currentUrl);
+      context.res.writeHead(302, {Location: secLink });
+      context.res.end();
+    }
+
+  }
+  
+  return { direct };
 }
 
 export default Post;

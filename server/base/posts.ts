@@ -1,4 +1,4 @@
-import PostMap from '../interface/posts';
+import {PostMap} from '../interface/posts';
 
 const posts: PostMap = {
   golf_5_kako_upaliti_klimu: {
