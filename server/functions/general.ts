@@ -1,20 +1,21 @@
 import posts from '../base/posts';
+import { PostsForPage } from '../interface/posts';
 
-export const getPostById = (id: number): object | boolean => {
+export const getPostById = (id: number): PostsForPage => {
   for (const key in posts) {
     if (posts[key]['id'] === id) {
-      return posts[key];
+      return {pagesLength: 1, post: posts[key]};
     }
   }
 
-  return false;
+  return {pagesLength: 1, post: []};
 }
 
-export const getPost = (postUrl: string): object => {
-  return posts[postUrl];
+export const getPost = (postUrl: string): PostsForPage => {
+  return {pagesLength: 1, post: posts[postUrl]};
 }
 
-export const getPostsForPage = (page: number): object => {
+export const getPostsForPage = (page: number): PostsForPage => {
   const postPerPage = 12;
   const bottomPage = (Object.keys(posts).length - (page*postPerPage)) < 0 ? 0 : (Object.keys(posts).length - (page*postPerPage));
   const topPage = bottomPage + postPerPage;
@@ -35,23 +36,16 @@ export const getPostsForPage = (page: number): object => {
     }
   }
 
- return { pagesLength: Math.ceil(Object.keys(posts).length / postPerPage), postsForPage };
+ return { pagesLength: Math.ceil(Object.keys(posts).length / postPerPage), post: postsForPage };
 }
 
-export const isPost = (query: object, pid: boolean): boolean => {
-  let pidString = "";
-  let id = 0;
-  if (isQueryObjectComplete(query, 'id')) {
-    pidString = getPagePid(query);
-    id = parseInt(query['queryObject']['id']);
-    const post = pid ? posts[pidString] : getPostById(id);
-    if (typeof post === 'object') {
-      if (isPidConsistentWithId(pidString, id)) {
-        return isPostObjectSturcture(post);
-      }
+export const isPost = (pidString: string, id: number, pid: boolean): boolean => {
+  const post = pid ? posts[pidString] : getPostById(id);
+  if (typeof post === 'object') {
+    if (isPidConsistentWithId(pidString, id)) {
+      return isPostObjectSturcture(post);
     }
   }
-
   return false;
 }
 
@@ -156,7 +150,7 @@ export const parseLink = (link: string): object => {
   return urlObj;
 }
 
-const getQuery = (url:string):object => {
+export const getQuery = (url:string):object => {
   const query = {};
   let initial = "";
   const init = url.split('?');
