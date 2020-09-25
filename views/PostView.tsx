@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Container, Row, Col } from 'reactstrap';
 import SinglePost from '../components/SinglePost';
@@ -128,7 +128,7 @@ const PostView = (props: PostViewProps) => {
           post['post']['author']
           ?
           <SinglePost
-            postObject={ post }           
+            postObject={ post }       
           />
           :
           null
