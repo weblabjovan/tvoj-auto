@@ -5,17 +5,13 @@ import Header from '../../components/navigation/header';
 import Footer from '../../components/navigation/footer';
 import PostView from '../../views/PostView';
 import { PostsForPage } from '../../server/interface/posts';
-import { isPost, getPost, getPostById, getPostsForPage, isLinkSecure, isWWWLink, getSecureLink, getQuery, setUrl } from '../../server/functions/general';
+import { isPost, getPost, getPostById, getPostsForPage, getQuery } from '../../server/functions/general';
 
-interface Props {
-  direct: boolean;
-}
 
-const Post = (data: Props) => {
+const Post = () => {
   const uaParser =  new  UA();
   const device = uaParser.getDevice();
   const router = useRouter();
-  const { direct } = data;
 
   const { query, asPath } = router;
   const { pid } = query;
@@ -51,8 +47,6 @@ const Post = (data: Props) => {
       postObj = getPostsForPage(pageNum);
     }
   }
-
-  console.log('Pid')
   
   return (
    
@@ -77,23 +71,6 @@ const Post = (data: Props) => {
     </div>
     
   )
-}
-
-Post.getInitialProps = async (context: any) => {
-  let direct = false;
-  // if (context['req']) {
-  //   direct = true;
-  //   const currentUrl = setUrl(context['req']['headers']['host'], context.asPath);
-
-  //   if(!isLinkSecure(currentUrl) || !isWWWLink(currentUrl)){
-  //     const secLink = getSecureLink(currentUrl);
-  //     context.res.writeHead(302, {Location: secLink });
-  //     context.res.end();
-  //   }
-
-  // }
-  
-  return { direct };
 }
 
 export default Post;
