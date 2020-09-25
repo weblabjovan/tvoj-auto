@@ -51,6 +51,8 @@ const Post = (data: Props) => {
       postObj = getPostsForPage(pageNum);
     }
   }
+
+  console.log('Pid')
   
   return (
    
@@ -79,17 +81,17 @@ const Post = (data: Props) => {
 
 Post.getInitialProps = async (context: any) => {
   let direct = false;
-  if (context['req']) {
-    direct = true;
-    const currentUrl = setUrl(context['req']['headers']['host'], context.asPath);
+  // if (context['req']) {
+  //   direct = true;
+  //   const currentUrl = setUrl(context['req']['headers']['host'], context.asPath);
 
-    if(!isLinkSecure(currentUrl) || !isWWWLink(currentUrl)){
-      const secLink = getSecureLink(currentUrl);
-      context.res.writeHead(302, {Location: secLink });
-      context.res.end();
-    }
+  //   if(!isLinkSecure(currentUrl) || !isWWWLink(currentUrl)){
+  //     const secLink = getSecureLink(currentUrl);
+  //     context.res.writeHead(302, {Location: secLink });
+  //     context.res.end();
+  //   }
 
-  }
+  // }
   
   return { direct };
 }
